@@ -24,7 +24,11 @@ for a in "${dfArray[@]}"; do
     fi
   done
   $in || echo "   |- $a is not in dsm.sys"
-  $in || echo $a >> backup_diff
+  $in || echo $a >> backup_diff.tmp
 done
-echo "\nSaved difference to 'backup_diff'..."
+
+awk 'ORS=" "' backup_diff.tmp > backup_diff
+rm backup_diff.tmp
+echo " " >> backup_diff
+echo "\nSaving difference to 'backup_diff'..."
 echo "-----------------------------------------------"
